@@ -40,7 +40,7 @@ class AggLayer(object):
         device_y: The party which has fusenet
         agg_method: Aggregation method must inherit from agg_method.AggMethod
         backend: tensorflow or torch
-        compressor: Define strategy tensor compression algorithms to speed up transmission.
+        compressor: Define strategy tensor compression algorithms to speed up transmission.ç
 
     """
 
@@ -273,9 +273,9 @@ class AggLayer(object):
         assert (
             basenet_output_num is not None
         ), "Agglayer should know output num of each participates"
-        if sum(basenet_output_num.values()) == 1:
+        if sum(basenet_output_num.values()) == 1: # 只有一个party
             return data
-        else:
+        else: # 多个party，分割大家
             assert len(data) == sum(
                 basenet_output_num.values()
             ), f"data length in backward = {len(data)} is not consistent with basenet need = {sum(basenet_output_num.values())},"
