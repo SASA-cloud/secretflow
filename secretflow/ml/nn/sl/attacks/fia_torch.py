@@ -120,8 +120,9 @@ class FeatureInferenceAttack(AttackCallback):
             ret = attacker.attack()
             return ret
 
+        # 获取victim的模型,作为attacker的输入参数
         victim_model = reveal(self._workers[self.victim_party].apply(get_victim_model))
-        self.victim_model_dict[self.victim_party.party] = victim_model
+        self.victim_model_dict[self.victim_party.party] = victim_model 
         self.metrics = reveal(
             self._workers[self.attack_party].apply(feature_inference_attack)
         )
@@ -179,7 +180,7 @@ class FeatureInferenceAttacker:
         assert len(attacker_fea_dim) == len(
             victim_fea_dim
         ), "attacker_fea_dim and victim_fea_dim should have same dimension"
-        for i in range(len(attacker_fea_dim) - 1):
+        for i in range(len(attacker_fea_dim) - 1): # 为啥呢？
             assert (
                 attacker_fea_dim[i] == victim_fea_dim[i]
             ), "attacker_fea_dim and victim_fea_dim should have same shape except last dim"
@@ -209,7 +210,7 @@ class FeatureInferenceAttacker:
         self.save_model_path = save_model_path
         self.exec_device = exec_device
 
-    def attack(self):
+    def attack(self): # 最后返回的是这个输出（self.metrics)
         """Begin attack."""
         # load generator model
         if self.load_model_path is not None:

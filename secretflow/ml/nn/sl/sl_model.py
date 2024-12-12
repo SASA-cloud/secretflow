@@ -477,6 +477,7 @@ class SLModel:
 
         callbacks.on_train_begin()
 
+        # 迭代epochs
         for epoch in range(epochs):
             res = []
             report_list = []

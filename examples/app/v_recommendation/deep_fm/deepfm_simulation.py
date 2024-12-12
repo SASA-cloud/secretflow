@@ -14,6 +14,7 @@
 
 from data.dataset import load_ml_1m
 from model.deepfm_model import DeepFMbase, DeepFMfuse
+import sys
 
 import secretflow as sf
 from secretflow.ml.nn import SLModel
@@ -251,6 +252,9 @@ def run():
         num_sample=50000,
     )
     label = vdf["Rating"]
+    
+    print(label)
+    sys.exit(0)
     # preprocess
     data = vdf.drop(columns=["Rating", "Timestamp", "Title", "Zip-code"])
     data["UserID"] = data["UserID"].astype("string")
