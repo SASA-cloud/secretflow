@@ -44,6 +44,7 @@ class InverseModelAttackCallbacks(AttackCallback):
                 victim_party: PYU = None,
 
                 decoder_model_wrapper=None,
+                tab=None,
                 **params,
                 ):
         super().__init__(**params)
@@ -55,6 +56,7 @@ class InverseModelAttackCallbacks(AttackCallback):
         self.decoder_route = decoder_route
         self.trainloader = trainloader
         self.testloader = testloader
+        self.tab=tab
 
         print("trainloader in callbacks: ",trainloader)
         print("testloader in callbacks: ",testloader)
@@ -104,7 +106,7 @@ class InverseModelAttackCallbacks(AttackCallback):
                             train_loader=trainloader,test_loader=testloader,
                             deprocess=None,
                             save_fake=True,
-                            tab=None)
+                            tab=self.tab)
             print("inverse done")
 
             return {}
@@ -238,9 +240,9 @@ class InverseModelAttack():
             mse = sim_metrics.mse_loss(originData,inverted_data).item()
             sim_metrics.sim_metric_dict['mse'].append(mse)
 
-            # accuracy,onehotacc,numacc = sim_metrics.rebuild_acc(originData,inverted_data,tab)
+            accuracy,onehotacc,numacc = sim_metrics.rebuild_acc(originData,inverted_data,tab)
             # print("onehotacc,numacc: ",onehotacc,numacc)
-            # sim_metrics.sim_metric_dict['acc'].append(accuracy)
+            sim_metrics.sim_metric_dict['acc'].append(accuracy)
 
 
             X_fake_list.append(inverted_data.cpu().detach().squeeze().numpy())

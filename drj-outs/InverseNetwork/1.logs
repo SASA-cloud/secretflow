@@ -1,0 +1,40 @@
+INFO:root:SL Train Params: {'self': <secretflow.ml.nn.sl.sl_model.SLModel object at 0x7f9a8d99af20>, 'x': VDataFrame(partitions={PYURuntime(alice): <secretflow.data.core.partition.Partition object at 0x7f9b3b15ab90>, PYURuntime(bob): <secretflow.data.core.partition.Partition object at 0x7f9b3b15b370>}, aligned=True), 'y': VDataFrame(partitions={PYURuntime(alice): <secretflow.data.core.partition.Partition object at 0x7f9b3b15bc70>}, aligned=True), 'batch_size': 64, 'epochs': 1, 'verbose': 1, 'callbacks': [<InverseModel.InverseModelAttackCallbacks object at 0x7f9a8b99ac50>], 'validation_data': (VDataFrame(partitions={PYURuntime(alice): <secretflow.data.core.partition.Partition object at 0x7f9b3b15b100>, PYURuntime(bob): <secretflow.data.core.partition.Partition object at 0x7f9b3b15b580>}, aligned=True), VDataFrame(partitions={PYURuntime(alice): <secretflow.data.core.partition.Partition object at 0x7f9b3b15be20>}, aligned=True)), 'shuffle': False, 'sample_weight': None, 'validation_freq': 1, 'dp_spent_step_freq': None, 'dataset_builder': None, 'audit_log_params': {}, 'early_stopping_batch_step': 0, 'early_stopping_warmup_step': 0, 'random_seed': 1234, 'audit_log_dir': None}
+ 98%|█████████▊| 56/57 [00:00<00:00, 109.88it/s, {'train_loss': array(0.36142364, dtype=float32), 'train_BinaryAccuracy': array(0.8420907, dtype=float32), 'train_BinaryPrecision': array(0.08955224, dtype=float32), 'val_loss': array(0.17533527, dtype=float32), 'val_BinaryAccuracy': array(0.8729282, dtype=float32), 'val_BinaryPrecision': array(0., dtype=float32)}]
+INFO:root:Load decoder model from:/home/dengruijun/data/FinTech/Products/secretflow/drj-outs/InverseNetwork/decoder_net.pth
+decoder_net:  BankNetDecoder(
+  (delinear1): Linear(in_features=64, out_features=128, bias=True)
+  (ReLU1): ReLU()
+  (delinear2): Linear(in_features=128, out_features=64, bias=True)
+  (ReLU2): ReLU()
+  (delinear3): Linear(in_features=64, out_features=12, bias=True)
+  (sigmoid): Sigmoid()
+)
+----train decoder----
+client_net: 
+GeneratedTorchModule(
+  (fc1): Linear(in_features=12, out_features=100, bias=True)
+  (relu1): ReLU()
+  (fc2): Linear(in_features=100, out_features=64, bias=True)
+  (relu2): ReLU()
+)
+decoder_net: 
+BankNetDecoder(
+  (delinear1): Linear(in_features=64, out_features=128, bias=True)
+  (ReLU1): ReLU()
+  (delinear2): Linear(in_features=128, out_features=64, bias=True)
+  (ReLU2): ReLU()
+  (delinear3): Linear(in_features=64, out_features=12, bias=True)
+  (sigmoid): Sigmoid()
+)
+100%|██████████| 905/905 [00:01<00:00, 904.73it/s] 
+average cos: 0.9883629339834603
+average euc: 0.17577367256194848
+average mse: 0.0040450720415895714
+average time: 0.0004304164022371914 avg infer time:0.00023147203645653488
+inverse done
+{'train_loss': [array(0.36142364, dtype=float32)],
+ 'train_BinaryAccuracy': [array(0.8420907, dtype=float32)],
+ 'train_BinaryPrecision': [array(0.08955224, dtype=float32)],
+ 'val_loss': [array(0.17533527, dtype=float32)],
+ 'val_BinaryAccuracy': [array(0.8729282, dtype=float32)],
+ 'val_BinaryPrecision': [array(0., dtype=float32)]}
